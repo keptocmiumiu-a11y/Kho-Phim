@@ -112,10 +112,17 @@
 
     <div id="contentBox" class="content hidden">
       <h2>Danh sách video</h2>
+
+<input
+  type="text"
+  id="searchInput"
+  placeholder="Tìm tên phim..."
+  style="width:100%;padding:14px;border-radius:10px;border:1px solid #475569;background:#0b1220;color:white;margin:12px 0 20px;"
+>
       <p style="color:#cbd5e1;">Nội dung chỉ hiển thị khi nhập đúng mật khẩu.</p>
 
       <div class="grid">
-        <div class="card">
+        <div class="card movie-item">
           <iframe src="https://drive.google.com/file/d/ID_VIDEO_1/preview" allow="autoplay" allowfullscreen></iframe>
           <div class="card-body">
             <div class="tag">Hành động</div>
@@ -124,7 +131,7 @@
           </div>
         </div>
 
-        <div class="card">
+        <div class="card movie-item">
           <iframe src="https://drive.google.com/file/d/ID_VIDEO_2/preview" allow="autoplay" allowfullscreen></iframe>
           <div class="card-body">
             <div class="tag">Tình cảm</div>
@@ -133,7 +140,7 @@
           </div>
         </div>
 
-        <div class="card">
+        <div class="card movie-item">
           <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
           <div class="card-body">
             <div class="tag">Kinh dị</div>
@@ -161,6 +168,19 @@
         errorMsg.classList.remove("hidden");
       }
     }
+    document.addEventListener("DOMContentLoaded", function () {
+  const searchInput = document.getElementById("searchInput");
+
+  searchInput.addEventListener("input", function () {
+    const keyword = this.value.toLowerCase();
+    const movies = document.querySelectorAll(".movie-item");
+
+    movies.forEach(function (movie) {
+      const text = movie.innerText.toLowerCase();
+      movie.style.display = text.includes(keyword) ? "" : "none";
+    });
+  });
+}); 
   </script>
 
 </body>
