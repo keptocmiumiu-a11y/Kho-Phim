@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kho phim hay</title>
+  <title>Kho phim riêng</title>
   <style>
     * {
       box-sizing: border-box;
@@ -93,7 +93,7 @@
 
     .hero-header {
       text-align: center;
-      padding: 48px 20px 28px;
+      padding: 42px 20px 24px;
       background: linear-gradient(180deg, #111827, #0f172a);
       border-bottom: 1px solid rgba(255,255,255,0.08);
     }
@@ -109,13 +109,13 @@
       max-width: 760px;
       color: #cbd5e1;
       line-height: 1.5;
-      font-size: 22px;
+      font-size: 20px;
     }
 
     .browse-bar {
       width: min(100%, 1100px);
       margin: 0 auto;
-      padding: 24px 18px 8px;
+      padding: 22px 18px 8px;
     }
 
     .browse-bar h2 {
@@ -124,11 +124,11 @@
       font-weight: 800;
     }
 
-    .search-wrap.full {
+    .search-wrap {
       width: 100%;
     }
 
-    .search-wrap.full input {
+    .search-wrap input {
       width: 100%;
       padding: 14px 16px;
       border-radius: 14px;
@@ -143,11 +143,11 @@
       display: flex;
       flex-direction: column;
       gap: 24px;
-      padding: 12px 0 28px;
+      padding: 12px 0 30px;
     }
 
     .video-card {
-      width: min(100%, 520px);
+      width: min(100%, 560px);
       margin: 0 auto;
       padding: 0 10px;
     }
@@ -183,6 +183,53 @@
       object-fit: cover;
     }
 
+    .poster-box {
+      position: absolute;
+      inset: 0;
+      cursor: pointer;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .poster-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .play-btn {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 86px;
+      height: 86px;
+      border: none;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.25);
+      color: #fff;
+      font-size: 34px;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+    }
+
+    .open-external {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 48px;
+      height: 48px;
+      border: none;
+      border-radius: 12px;
+      background: rgba(0,0,0,0.45);
+      color: #fff;
+      font-size: 22px;
+      cursor: pointer;
+      z-index: 6;
+      backdrop-filter: blur(4px);
+    }
+
     .overlay {
       position: absolute;
       inset: 0;
@@ -190,10 +237,11 @@
       background: linear-gradient(
         to top,
         rgba(0,0,0,0.88) 0%,
-        rgba(0,0,0,0.4) 30%,
-        rgba(0,0,0,0.08) 55%,
-        rgba(0,0,0,0.12) 100%
+        rgba(0,0,0,0.42) 28%,
+        rgba(0,0,0,0.06) 60%,
+        rgba(0,0,0,0.16) 100%
       );
+      z-index: 2;
     }
 
     .video-info {
@@ -201,7 +249,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      z-index: 3;
+      z-index: 4;
       padding: 18px 16px 18px;
       pointer-events: none;
     }
@@ -236,7 +284,7 @@
       position: absolute;
       right: 12px;
       bottom: 18px;
-      z-index: 4;
+      z-index: 5;
       display: flex;
       flex-direction: column;
       gap: 12px;
@@ -244,14 +292,15 @@
     }
 
     .action-btn {
-      width: 44px;
-      height: 44px;
+      width: 52px;
+      height: 52px;
       border-radius: 999px;
       border: 1px solid rgba(255,255,255,0.15);
       background: rgba(0,0,0,0.42);
       color: #fff;
-      font-size: 18px;
+      font-size: 24px;
       cursor: pointer;
+      backdrop-filter: blur(4px);
     }
 
     .empty-state {
@@ -282,7 +331,7 @@
         margin-bottom: 12px;
       }
 
-      .search-wrap.full input {
+      .search-wrap input {
         padding: 12px 14px;
         font-size: 15px;
       }
@@ -304,6 +353,23 @@
         font-size: 14px;
         max-width: 82%;
       }
+
+      .play-btn {
+        width: 78px;
+        height: 78px;
+        font-size: 30px;
+      }
+
+      .open-external {
+        width: 44px;
+        height: 44px;
+        font-size: 20px;
+      }
+
+      .action-btn {
+        width: 48px;
+        height: 48px;
+      }
     }
   </style>
 </head>
@@ -312,7 +378,7 @@
   <section id="loginScreen" class="login-screen">
     <div class="login-box">
       <h2>Kho phim hay</h2>
-      <p>Xem phim chọn lọc mỗi ngày. Nhập mật khẩu tại tainhanhvideo.com để truy cập nội dung bên trong.</p>
+      <p>Xem phim chọn lọc mỗi ngày. Nhập mật khẩu tại tainhanhvideo.com để truy cập nội dung bên trong</p>
       <input type="password" id="password" placeholder="Nhập mật khẩu" />
       <button onclick="checkPassword()">Vào xem</button>
       <div id="errorMsg" class="error hidden">Sai mật khẩu.</div>
@@ -327,7 +393,7 @@
 
     <section class="browse-bar">
       <h2>Nhập tên phim vào ô bên dưới</h2>
-      <div class="search-wrap full">
+      <div class="search-wrap">
         <input type="text" id="searchInput" placeholder="Tìm tên phim..." />
       </div>
     </section>
@@ -343,39 +409,51 @@
       {
         title: "Phim tập 1",
         category: "Hành động",
-        description: "Nội dung mô tả ngắn.",
+        description: "Capcut pro miễn phí tại tainhanhvideo.com",
         type: "drive",
-        src: "https://drive.google.com/file/d/1NDL14Q1fQSRCqFKKfYltScF3Cg_r-D_Q/preview"
+        src: "https://drive.google.com/file/d/1DFhmJjPXlEVuGEfnHxna9MaPEovV1Iq5/preview",
+        link: "https://drive.google.com/file/d/1DFhmJjPXlEVuGEfnHxna9MaPEovV1Iq5/view?usp=sharing",
+        poster: "https://drive.google.com/thumbnail?id=1DFhmJjPXlEVuGEfnHxna9MaPEovV1Iq5&sz=w1200"
       },
       {
         title: "Phim tập 2",
         category: "Tình cảm",
-        description: "Nội dung mô tả ngắn.",
+        description: "Capcut pro miễn phí tại tainhanhvideo.com",
         type: "drive",
-        src: "https://drive.google.com/file/d/1n9iveTvzheVzGcakjdEK139PLbY3JQVT/preview"
+        src: "https://drive.google.com/file/d/1n9iveTvzheVzGcakjdEK139PLbY3JQVT/preview",
+        link: "https://drive.google.com/file/d/1n9iveTvzheVzGcakjdEK139PLbY3JQVT/view?usp=sharing",
+        poster: "https://drive.google.com/thumbnail?id=1n9iveTvzheVzGcakjdEK139PLbY3JQVT&sz=w1000"
       },
       {
         title: "Phim tập 5",
         category: "Hành động",
-        description: "Nội dung mô tả ngắn.",
+        description: "Capcut pro miễn phí tại tainhanhvideo.com",
         type: "drive",
-        src: "https://drive.google.com/file/d/1-0MdcojXwYYdqerNWkYgGw-vkXNMwo95/preview"
+        src: "https://drive.google.com/file/d/1-0MdcojXwYYdqerNWkYgGw-vkXNMwo95/preview",
+        link: "https://drive.google.com/file/d/1-0MdcojXwYYdqerNWkYgGw-vkXNMwo95/view?usp=sharing",
+        poster: "https://drive.google.com/thumbnail?id=1-0MdcojXwYYdqerNWkYgGw-vkXNMwo95&sz=w1000"
       },
       {
         title: "Phim tập 6",
         category: "Hành động",
-        description: "Nội dung mô tả ngắn.",
+        description: "Capcut pro miễn phí tại tainhanhvideo.com",
         type: "drive",
-        src: "https://drive.google.com/file/d/1DFhmJjPXlEVuGEfnHxna9MaPEovV1Iq5/preview"
+        src: "https://drive.google.com/file/d/1DFhmJjPXlEVuGEfnHxna9MaPEovV1Iq5/preview",
+        link: "https://drive.google.com/file/d/1DFhmJjPXlEVuGEfnHxna9MaPEovV1Iq5/view?usp=sharing",
+        poster: "https://drive.google.com/thumbnail?id=1DFhmJjPXlEVuGEfnHxna9MaPEovV1Iq5&sz=w1000"
       },
       {
         title: "Phim tập 7",
         category: "Hành động",
-        description: "Nội dung mô tả ngắn.",
+        description: "Capcut pro miễn phí tại tainhanhvideo.com",
         type: "youtube",
-        src: "https://www.youtube.com/embed/2zRsr2hxO5E"
+        src: "https://www.youtube.com/embed/2zRsr2hxO5E",
+        link: "https://youtu.be/2zRsr2hxO5E",
+        poster: "https://img.youtube.com/vi/2zRsr2hxO5E/maxresdefault.jpg"
       }
     ];
+
+    let currentRenderedVideos = [...videos];
 
     function createMedia(video) {
       if (video.type === "video") {
@@ -395,7 +473,24 @@
       `;
     }
 
+    function openVideo(index) {
+      const video = currentRenderedVideos[index];
+      const wraps = document.querySelectorAll(".media-wrap");
+      const wrap = wraps[index];
+      if (!video || !wrap) return;
+
+      wrap.innerHTML = createMedia(video);
+    }
+
+    function openExternal(index) {
+      const video = currentRenderedVideos[index];
+      if (!video || !video.link) return;
+      window.open(video.link, "_blank");
+    }
+
     function renderVideos(list) {
+      currentRenderedVideos = [...list];
+
       const feed = document.getElementById("videoFeed");
       const empty = document.getElementById("emptyState");
 
@@ -408,11 +503,16 @@
       empty.classList.add("hidden");
 
       feed.innerHTML = list.map((video, index) => `
-        <article class="video-card movie-item" data-search="${(video.title + ' ' + video.category + ' ' + video.description).toLowerCase()}">
+        <article class="video-card movie-item">
           <div class="video-shell">
             <div class="media-wrap">
-              ${createMedia(video)}
+              <div class="poster-box" onclick="openVideo(${index})">
+                <img src="${video.poster}" alt="${video.title}" class="poster-img">
+                <button class="play-btn" type="button">▶</button>
+              </div>
             </div>
+
+            <button class="open-external" type="button" onclick="openExternal(${index})">↗</button>
 
             <div class="overlay"></div>
 
@@ -423,8 +523,8 @@
             </div>
 
             <div class="action-bar">
-              <button class="action-btn" onclick="scrollToCard(${index - 1})">↑</button>
-              <button class="action-btn" onclick="scrollToCard(${index + 1})">↓</button>
+              <button class="action-btn" type="button" onclick="scrollToCard(${index - 1})">↑</button>
+              <button class="action-btn" type="button" onclick="scrollToCard(${index + 1})">↓</button>
             </div>
           </div>
         </article>
